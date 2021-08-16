@@ -16,3 +16,49 @@
 
  ## Code Example
  */
+import UIKit
+
+//MARK:- Address
+public struct Address {
+    public var street: String
+    public var city: String
+    public var state: String
+    public var zipCode: String
+}
+
+
+public final class AddressView: UIView {
+    @IBOutlet public var streetTextField: UITextField!
+    @IBOutlet public var cityTextField: UITextField!
+    @IBOutlet public var stateTextField: UITextField!
+    @IBOutlet public var zipCodeTextField: UITextField!
+}
+
+
+public final class AddressViewController: UIViewController {
+
+    public var address: Address? {
+        didSet {
+            updateViewFromAddress()
+        }
+    }
+    public var addressView: AddressView! {
+        guard isViewLoaded else { return nil }
+        return (view as! AddressView)
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        updateViewFromAddress()
+    }
+
+    private func updateViewFromAddress() {
+        guard let addressView = addressView,
+            let address = address else { return }
+        addressView.streetTextField.text = address.street
+        addressView.cityTextField.text = address.city
+        addressView.stateTextField.text = address.state
+        addressView.zipCodeTextField.text = address.zipCode
+    }
+}
+
