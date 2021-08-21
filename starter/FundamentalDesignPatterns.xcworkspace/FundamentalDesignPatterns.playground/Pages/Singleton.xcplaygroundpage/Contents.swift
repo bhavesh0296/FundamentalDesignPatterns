@@ -11,3 +11,20 @@
  
  ## Code Example
  */
+import UIKit
+
+let app = UIApplication.shared
+let app2 = UIApplication() // this give error becuase Apple doesn't allow it
+
+public class MySingleton {
+    static let shared = MySingleton()
+
+    private inti() { }
+}
+
+let mySingleton = MySingleton.shared
+
+//MARK:- Singleton Plus
+
+let fileManager = FileManager.default
+let myFileManager = FileManager()
