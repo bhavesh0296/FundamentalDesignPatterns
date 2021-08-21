@@ -11,3 +11,43 @@
  
  ## Code Example
  */
+import UIKit
+
+public class MenuViewController: UIViewController {
+
+    @IBOutlet public var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        }
+    }
+
+    @IBOutlet public weak var delegate: MenuViewControllerDelegate?
+
+    private let items = ["Item 1", "Item 2", "Item 3", "Item 4",]
+}
+
+extension MenuViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.menuViewController(self, didSelectItemAtIndex: indexPath.row)
+    }
+}
+
+extension MenuViewController: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel.text = items[indexPath.row]
+        return cell
+    }
+}
+
+publci protocol MenuViewControllerDelegate: class {
+    func menuViewController(_ menuViewController: MenuViewController, didSelectItemAtIndex index: Int) {
+
+    }
+}
