@@ -19,7 +19,7 @@ let app2 = UIApplication() // this give error becuase Apple doesn't allow it
 public class MySingleton {
     static let shared = MySingleton()
 
-    private inti() { }
+    private init() { }
 }
 
 let mySingleton = MySingleton.shared
