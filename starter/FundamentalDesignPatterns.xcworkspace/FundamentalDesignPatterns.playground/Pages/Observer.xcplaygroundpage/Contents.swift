@@ -11,3 +11,26 @@
  
  ## Code Example
  */
+import Combine
+
+public class User {
+    @Published var name: String
+
+    public init(name: String){
+        self.name = name
+    }
+}
+
+let user = User(name: "Bhavesh")
+
+let publisher = user.$name
+
+var subscriber: AnyCancellable? = publisher.sink { (name) in
+    print(name)
+}
+
+user.name = "Rohit"
+
+subscriber = nil
+
+user.name = "Mohit"
